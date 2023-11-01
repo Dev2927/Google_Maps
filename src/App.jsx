@@ -1,20 +1,20 @@
-import { GoogleMap, useLoadScript } from "@react-google-maps/api";
+import React, { useState } from "react";
+import "./App.css";
+import MapComponent from "./components/Map";
+import Directions from "./components/Directions";
 
-export default function App() {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_PUBLIC_MAP_API_KEY,
+function App() {
+  const [route, setRoute] = useState()
+  const [selectedLocation, setSelectedLocation] = useState({
+    lat: 43.66293,
+    lng: -79.39314,
   });
-
-  if (!isLoaded) return <div>Loading...</div>;
-  return <Map />;
-}
-
-function Map() {
   return (
-    <GoogleMap
-      zoom={10}
-      center={{ lat: 44, lng: -80 }}
-      mapContainerClassName="map-container"
-    ></GoogleMap>
+    <div style={{ height: "100vh", width: "100%" }}>
+      <MapComponent selectedLocation={selectedLocation} />
+      <Directions setRoute={setRoute}/>
+    </div>
   );
 }
+
+export default App;
